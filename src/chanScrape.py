@@ -5,6 +5,12 @@ import os
 import shutil
 
 url = "https://boards.4chan.org/wg"
+
+if os.path.exists("./output"):
+    shutil.rmtree("./output", ignore_errors=True)
+
+os.makedirs("./output")
+
 f = open("./output/threads.txt", "w+", encoding="utf-8")
 
 threads = getThreads(url)
