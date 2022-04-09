@@ -13,7 +13,7 @@ The goal of this project is to create a scraper that gets number of responses in
 To run the scraper, simply clon this repository and run chanScrape.py. All images and data will be stored in the output folder. Remember to install dependencies first ⬆️
 
 Running the scraper:
-(in root folder) `python .\src\chanScrape.py`
+(in root folder) `python .\src\chanScrape.py <number_of_threads> <number_of_images_in_each_thread>`, so running `python .\src\chanScrape.py 3 10` will download first ten images from top 3 threads sorted by number of responses
 
 Since different boards have simmilar structure, it is possible to do the same scraping procedure on other boards by changing the url in chanScrape.py file
 
