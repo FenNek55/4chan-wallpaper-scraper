@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 from driverSetup import setupChromeDriver
 
 url = "https://boards.4chan.org/wg/catalog"
-f = open("log.txt", "w+", encoding="utf-8")
+f = open("./output/threads.txt", "w+", encoding="utf-8")
 
 driver = setupChromeDriver()
 driver.get(url)
