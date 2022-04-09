@@ -1,31 +1,12 @@
-from bs4 import BeautifulSoup
-from driverSetup import setupChromeDriver
+from getThreads import getThreads
 
 url = "https://boards.4chan.org/wg/catalog"
 f = open("./output/threads.txt", "w+", encoding="utf-8")
 
-driver = setupChromeDriver()
-driver.get(url)
+threads = getThreads(url)
 
-html = driver.page_source
-soup = BeautifulSoup(html, "html.parser")
-
-threadTags = soup.select(".thread")
-
-for thread in threadTags:
-    output = ""
-    title = thread.select_one(".teaser b")
-    meta = thread.select_one(".meta")
-
-    numberOfResponses = meta.select_one("b")
-
-    if title is not None:
-        output += str(title.text)
-    else:
-        output += "NO_TITLE"
-    
-    output += " Number of replies: " + str(numberOfResponses.text)
-
+for thread in threads:
+    output = f'{thread["title"]} Number of replies: {thread["numberOfResponses"]}'
     f.write(output + "\n")
 
 f.close()
