@@ -8,3 +8,5 @@ def setupChromeDriver():
     options.add_argument('--headless')
 
     return webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
+
+driver = setupChromeDriver()

@@ -1,9 +1,8 @@
-from driverSetup import setupChromeDriver
+from driverSetup import driver
 from bs4 import BeautifulSoup
 import re
 
 def getThreads(url):
-    driver = setupChromeDriver()
     driver.get(url + "/catalog")
 
     html = driver.page_source
