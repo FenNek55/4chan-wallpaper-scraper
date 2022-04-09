@@ -1,7 +1,7 @@
 from driverSetup import driver
 from bs4 import BeautifulSoup
 
-def getImagesUrls(threadUrl):
+def getImageUrlsFromThread(threadUrl):
     driver.get(threadUrl)
     html = driver.page_source
 

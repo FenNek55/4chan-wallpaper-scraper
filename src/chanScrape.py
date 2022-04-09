@@ -1,5 +1,8 @@
 from getThreads import getThreads
-from getImages import getImagesUrls
+from getImageUrls import getImageUrlsFromThread
+from saveImageLocally import saveImageLocally
+import os
+import shutil
 
 url = "https://boards.4chan.org/wg"
 f = open("./output/threads.txt", "w+", encoding="utf-8")
@@ -12,6 +15,17 @@ for thread in sortedThreads:
     f.write(output + "\n")
 f.close()
 
-for thread in sortedThreads[0: 3]:
-    print(getImagesUrls(thread["threadLink"]))
+for threadIndex, thread in enumerate(sortedThreads[0: 3]):
+    imageUrls = getImageUrlsFromThread(thread["threadLink"])[0: 10]
+    folderPath = f'./output/{threadIndex}'
+
+    if os.path.exists(folderPath):
+        shutil.rmtree(folderPath, ignore_errors=True)
+
+    os.makedirs(folderPath)
+
+    for imageIndex, imageUrl in enumerate(imageUrls):
+        imagePath = f'./output/{threadIndex}/{str(threadIndex) + str(imageIndex)}.jpg'
+
+        saveImageLocally(imageUrl, imagePath)
 
