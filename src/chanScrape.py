@@ -2,7 +2,10 @@ from getThreads import getThreads
 from getImageUrls import getImageUrlsFromThread
 from saveImageLocally import saveImageLocally
 import os
+import sys
 import shutil
+
+args = [int(arg) for arg in sys.argv[1:]]
 
 url = "https://boards.4chan.org/wg"
 
@@ -21,8 +24,8 @@ for thread in sortedThreads:
     f.write(output + "\n")
 f.close()
 
-for threadIndex, thread in enumerate(sortedThreads[0: 3]):
-    imageUrls = getImageUrlsFromThread(thread["threadLink"])[0: 10]
+for threadIndex, thread in enumerate(sortedThreads[0: args[0]]):
+    imageUrls = getImageUrlsFromThread(thread["threadLink"])[0: args[1]]
     folderPath = f'./output/{threadIndex}'
 
     if os.path.exists(folderPath):
