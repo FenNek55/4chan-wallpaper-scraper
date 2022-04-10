@@ -1,6 +1,6 @@
 from getThreads import getThreads
-from getImageUrls import getImageUrlsFromThread
-from saveImageLocally import saveImageLocally
+from saveImageLocally import saveImagesFromThread
+from threading import Thread
 import os
 import sys
 import shutil
@@ -24,17 +24,13 @@ for thread in sortedThreads:
     f.write(output + "\n")
 f.close()
 
+threads = []
 for threadIndex, thread in enumerate(sortedThreads[0: args[0]]):
-    imageUrls = getImageUrlsFromThread(thread["threadLink"])[0: args[1]]
-    folderPath = f'./output/{threadIndex}'
+    threads.append(Thread(target=saveImagesFromThread, args=(f'./output/{threadIndex}/', thread, args[1])))
 
-    if os.path.exists(folderPath):
-        shutil.rmtree(folderPath, ignore_errors=True)
+for thread in threads:
+    thread.start()
 
-    os.makedirs(folderPath)
-
-    for imageIndex, imageUrl in enumerate(imageUrls):
-        imagePath = f'./output/{threadIndex}/{str(threadIndex) + str(imageIndex)}.jpg'
-
-        saveImageLocally(imageUrl, imagePath)
-
+for thread in threads:
+    thread.join()
+    
